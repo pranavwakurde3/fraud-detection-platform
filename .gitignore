@@ -7,3 +7,6 @@ __pycache__/
 mlflow.db
 mlruns/
 models/
+feature_repo/registry.db
+feature_repo/online_store.db
+feature_repo/__pycache__/
