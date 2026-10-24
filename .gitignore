@@ -4,3 +4,6 @@ kaggle.json
 access_token
 .ipynb_checkpoints/
 __pycache__/
+mlflow.db
+mlruns/
+models/
