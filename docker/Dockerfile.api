@@ -1,0 +1,8 @@
+FROM python:3.14-slim
+WORKDIR /app
+RUN pip install --no-cache-dir --default-timeout=200 --retries 10 fastapi uvicorn pandas numpy pyarrow xgboost feast
+COPY src/__init__.py src/api.py src/
+COPY models/xgb_serving.json models/serving_features.json models/
+COPY feature_repo feature_repo
+EXPOSE 8000
+CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]

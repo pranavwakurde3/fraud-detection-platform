@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: fraud-api}
+  template:
+    metadata:
+      labels: {app: fraud-api}
+    spec:
+      containers:
+      - name: api
+        image: fraud-api:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet: {path: /health, port: 8000}
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          requests: {memory: "512Mi"}
+          limits: {memory: "1Gi"}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-api
+spec:
+  selector: {app: fraud-api}
+  ports:
+  - port: 8000
+    targetPort: 8000
