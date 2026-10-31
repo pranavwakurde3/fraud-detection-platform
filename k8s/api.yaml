@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: fraud-api:1.0
+        image: fraud-api:3.0
         imagePullPolicy: Never
         ports:
         - containerPort: 8000

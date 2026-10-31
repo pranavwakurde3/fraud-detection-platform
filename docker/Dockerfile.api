@@ -1,7 +1,10 @@
 FROM python:3.14-slim
 WORKDIR /app
-RUN pip install --no-cache-dir --default-timeout=200 --retries 10 fastapi uvicorn pandas numpy pyarrow xgboost feast
+RUN pip install --no-cache-dir --default-timeout=200 --retries 10 fastapi uvicorn pandas numpy pyarrow scikit-learn xgboost-cpu feast
+RUN python -c "import sklearn, xgboost, feast, fastapi; print('deps ok')"
 COPY src/__init__.py src/api.py src/
+COPY models/xgb_serving.json models/serving_features.json models/
+COPY feature_repo feature_repo
 COPY models/xgb_serving.json models/serving_features.json models/
 COPY feature_repo feature_repo
 EXPOSE 8000
